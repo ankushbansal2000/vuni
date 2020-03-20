@@ -12,7 +12,7 @@
                     <span style="color: red">*</span>
                 </div>
                 <div class="InformationGetWrap">
-                    <input type="text" name="name" #name="ngModel" class="form-control" [(ngModel)]="student.name">
+                    <input type="text" name="name" #name="ngModel" class="form-control" [(ngModel)]="student.name" >
                 </div> 
             </div>
 
@@ -252,8 +252,8 @@
                         Permanent Address same as Correspondence Address?
                 </div>
                 <div class="RadioButtonWrap">
-                    <input type="radio" name="Yes">Yes
-                    <input type="radio" name="Yes" checked>No
+                    <input type="radio" name="Yes" value="yes">Yes
+                    <input type="radio" name="Yes" value="no" checked>No
                 </div>
             </div>
             <div class="personalBodyWrap">
