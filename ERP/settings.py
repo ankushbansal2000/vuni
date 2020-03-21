@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # 'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -74,26 +73,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ERP.wsgi.application'
 
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES':(
-#         'rest_framework.authentication.TokenAuthentication'
-#     ),
-#     'DEFAULT_PERMISSION_CLASSES':(
-#         'rest_framework.permissions.IsAuthenticated'
-#     )
-# }
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'ERP_PORTAL',
-        'USER': 'postgres',
-        'PASSWORD': '123',
-        'HOST': 'localhost'
     }
 }
 
