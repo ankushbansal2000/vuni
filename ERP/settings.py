@@ -39,6 +39,7 @@ CORS_ORIGIN_WHITELIST = [
 INSTALLED_APPS = [
     'register',
     'login',
+    'feepattern',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

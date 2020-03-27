@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Student_Details(models.Model):
+    student_admission_status = models.CharField(default = "pending",max_length=50)
     student_name=models.CharField(max_length=50)
     student_DOB=models.DateField()
     student_father=models.CharField(max_length=50)
@@ -32,6 +33,9 @@ class Student_Details(models.Model):
     student_parrpincode=models.IntegerField()
     # student_image=models.ImageField(upload_to="pics", height_field=None, width_field=None, max_length=None)
     student_course=models.CharField(max_length=50)
-    
+    student_batch = models.CharField(default= " ",max_length=50)
+    student_academic_year = models.CharField(default=" ",max_length=50)
+    student_admission_category = models.CharField(default = " ",max_length=50)
+    student_fee_category = models.CharField(default= " ",max_length=50)
     def __str__(self):
         return self.student_name
