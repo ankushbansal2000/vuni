@@ -31,11 +31,16 @@ class Student_Details(models.Model):
     student_parrstate=models.CharField(max_length=50)
     student_parrcountry=models.CharField(max_length=50)
     student_parrpincode=models.IntegerField()
-    # student_image=models.ImageField(upload_to="pics", height_field=None, width_field=None, max_length=None)
     student_course=models.CharField(max_length=50)
-    student_batch = models.CharField(default= " ",max_length=50)
-    student_academic_year = models.CharField(default=" ",max_length=50)
-    student_admission_category = models.CharField(default = " ",max_length=50)
-    student_fee_category = models.CharField(default= " ",max_length=50)
+    student_batch = models.CharField(default= "NotGiven ",max_length=50)
+    student_academic_year = models.CharField(default="NotGiven ",max_length=50)
+    student_admission_category = models.CharField(default = " NotGiven",max_length=50)
+    student_fee_category = models.CharField(default= " NotGiven",max_length=50)
     def __str__(self):
         return self.student_name
+
+def upload_path(instance,filename):
+    return '/'.join(['images',filename])
+
+class Student_Image(models.Model):
+    student_image = models.ImageField(upload_to=upload_path)

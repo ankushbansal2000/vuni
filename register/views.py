@@ -1,6 +1,6 @@
-from .models import Student_Details
+from .models import Student_Details,Student_Image
 from rest_framework import generics,filters,viewsets
-from .serializer import StudentSerializers,StudentGet,StudentUpdate
+from .serializer import StudentSerializers,StudentGet,StudentUpdate,StudentImage
 from rest_framework.exceptions import MethodNotAllowed
 class StudentViewSet(generics.ListCreateAPIView):
     def get_serializer_class(self):
@@ -32,3 +32,7 @@ class StudentRegistrationUpdate(viewsets.ModelViewSet):
     queryset = Student_Details.objects.all()
     serializer_class = StudentUpdate
     
+
+class ImageViewSet(viewsets.ModelViewSet):
+    queryset = Student_Image.objects.all()
+    serializeer_class = StudentImage

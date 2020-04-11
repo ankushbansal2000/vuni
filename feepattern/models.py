@@ -8,5 +8,4 @@ class FeePattern(models.Model):
     fee_pattern_academic_fee = models.IntegerField(default="0")
 
     def __str__(self):
-        return self.fee_pattern_class_name
-    
+        return self.fee_pattern_class_name  

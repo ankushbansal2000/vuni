@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Student_Details
+from .models import Student_Details,Student_Image
 
 
 class StudentSerializers(serializers.ModelSerializer):
@@ -19,3 +19,8 @@ class StudentUpdate(serializers.ModelSerializer):
     class Meta:
         model = Student_Details
         fields = ['student_admission_status','student_batch','student_academic_year','student_admission_category','student_fee_category']
+
+class StudentImage(serializers.ModelSerializer):
+    class Meta:
+        model = Student_Image
+        fields = "__all__"
