@@ -35,4 +35,4 @@ class StudentRegistrationUpdate(viewsets.ModelViewSet):
 
 class ImageViewSet(viewsets.ModelViewSet):
     queryset = Student_Image.objects.all()
-    serializeer_class = StudentImage
+    serializer_class = StudentImage
