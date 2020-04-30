@@ -11,7 +11,7 @@ router.register('image',ImageViewSet)
 
 urlpatterns = [
     # path('api-auth/', include('rest_framework', namespace='rest_framework')),
-    path('reg',StudentViewSet.as_view()),
+    path('reg',StudentViewSet),
     path(r'',SearchStudent.as_view()),
 ]
 urlpatterns += router.urls
