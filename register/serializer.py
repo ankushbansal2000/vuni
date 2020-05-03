@@ -18,7 +18,7 @@ class StudentGet(serializers.ModelSerializer):
 class StudentUpdate(serializers.ModelSerializer):
     class Meta:
         model = Student_Details
-        fields = ['student_admission_status','student_batch','student_academic_year','student_admission_category','student_fee_category']
+        fields = ['student_batch','student_fee_pattern']
 
 class StudentImage(serializers.ModelSerializer):
     class Meta:

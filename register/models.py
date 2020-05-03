@@ -32,10 +32,8 @@ class Student_Details(models.Model):
     student_parrcountry=models.CharField(max_length=50)
     student_parrpincode=models.IntegerField()
     student_course=models.CharField(max_length=50)
-    student_batch = models.CharField(default= "NotGiven ",max_length=50)
-    student_academic_year = models.CharField(default="NotGiven ",max_length=50)
-    student_admission_category = models.CharField(default = " NotGiven",max_length=50)
-    student_fee_category = models.CharField(default= " NotGiven",max_length=50)
+    student_batch = models.CharField(max_length=50, blank = True)
+    student_fee_pattern = models.CharField(max_length=50, blank = True)
     student_image = models.CharField(max_length=100)
     def __str__(self):
         return self.student_name
