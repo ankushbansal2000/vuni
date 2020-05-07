@@ -25,7 +25,7 @@ SECRET_KEY = 'wvnjq(^^c!_tq3zu216t%$yh-4apgt^2-svm7uixy4pcwz8@6^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL=True
 
@@ -94,7 +94,17 @@ DATABASES = {
         'NAME': 'ERP_PORTAL',
     }
 }
-
+# AW7Kd1yClIngsaKd
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'test',
+#         'HOST': 'mongodb+srv://jamura:jamu@erp-ducdz.mongodb.net/test?retryWrites=true&w=majority',
+#         'USER': 'jamura',
+#         'PASSWORD': 'jamu',
+#         'PORT': '8000'
+#     }
+# }
  
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

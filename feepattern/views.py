@@ -15,8 +15,10 @@ class Fee(generics.ListCreateAPIView):
             return queryset
         elif self.request.method == "GET":
             queryset = FeePattern.objects.all()
-            for p in FeePattern.objects.raw('SELECT id, fee_pattern_class_name FROM feepattern_FeePattern'):
-                print('a')
+            name = {'name': 'fee_pattern_class_name'} 
+            FeePattern.objects.raw('SELECT id, name as fee_pattern_class_name FROM feepattern_FeePattern',translations = name)
+            print(name)
+            for p in FeePattern.objects.raw('SELECT id, name as fee_pattern_class_name FROM feepattern_FeePattern'):
                 print(p)
             return queryset
 
