@@ -3,6 +3,7 @@ from .serializer import FeeSerializer,FeeHeadSerializer
 from .models import FeePattern, FeePatternHead
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
+from django.http import JsonResponse
 # Create your views here.
 
 class Fee(generics.ListCreateAPIView):
@@ -10,16 +11,23 @@ class Fee(generics.ListCreateAPIView):
     def get_queryset(self):
         if self.request.method == "POST":
             queryset = FeePattern.objects.get()
-            # for p in FeePattern.objects.raw():
-            #     print(p)
+            # for p in FeePattern.objects.raw("SELECT feepattern_FeePattern"):
+            #     print(p.fee_pattern_type)
             return queryset
         elif self.request.method == "GET":
             queryset = FeePattern.objects.all()
-            name = {'name': 'fee_pattern_class_name'} 
-            FeePattern.objects.raw('SELECT id, name as fee_pattern_class_name FROM feepattern_FeePattern',translations = name)
-            print(name)
-            for p in FeePattern.objects.raw('SELECT id, name as fee_pattern_class_name FROM feepattern_FeePattern'):
-                print(p)
+            l=[]
+            for p in queryset.raw('SELECT * from feepattern_FeePattern'):
+                if str(p.fee_pattern_class_name)+"_"+p.fee_pattern_type+"_"+p.fee_pattern_batch in l:
+                    pass
+                else:
+                    l.append(
+                    
+                            str(p.fee_pattern_class_name)+"_"+p.fee_pattern_type+"_"+str(p.fee_pattern_batch),
+                        
+                    )
+            queryset = l,
+            print(queryset)
             return queryset
 
 
