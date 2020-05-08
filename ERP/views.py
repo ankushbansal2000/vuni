@@ -1,16 +1,17 @@
 import pyrebase
 
 config = {
-    'apiKey': "AIzaSyCm5BzstqFAR5J1fh9RK5kPQR4sslkVHcw",
-    'authDomain': "vunni-24de6.firebaseapp.com",
-    'databaseURL': "https://vunni-24de6.firebaseio.com",
-    'projectId': "vunni-24de6",
-    'storageBucket': "vunni-24de6.appspot.com",
-    'messagingSenderId': "83041827292",
-    'appId': "1:83041827292:web:0d85c8b283d18649c47719",
-    'measurementId': "G-Y4BQCQD9RM"
+    'apiKey': "AIzaSyBqbIlpDGidoLfL28eho8n1xN0cfbeEFr8",
+    'authDomain': "vunni-b80bc.firebaseapp.com",
+    'databaseURL': "https://vunni-b80bc.firebaseio.com",
+    'projectId': "vunni-b80bc",
+    'storageBucket': "vunni-b80bc.appspot.com",
+    'messagingSenderId': "360862200900",
+    'appId': "1:360862200900:web:8bbdd0fbdc9359abe13811",
+    'measurementId': "G-BYDSE4ZV7Z"
 
 }
 firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
 database = firebase.database()
 storage = firebase.storage()
