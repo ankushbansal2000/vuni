@@ -16,19 +16,8 @@ class Fee(generics.ListCreateAPIView):
             return queryset
         elif self.request.method == "GET":
             queryset = FeePattern.objects.all()
-            l=[]
-            for p in queryset.raw('SELECT * from feepattern_FeePattern'):
-                if str(p.fee_pattern_class_name)+"_"+p.fee_pattern_type+"_"+p.fee_pattern_batch in l:
-                    pass
-                else:
-                    l.append(
-                    
-                            str(p.fee_pattern_class_name)+"_"+p.fee_pattern_type+"_"+str(p.fee_pattern_batch),
-                        
-                    )
-            queryset = l,
-            print(queryset)
             return queryset
+            # return queryset
 
 
 class FeeHead(generics.ListCreateAPIView):
@@ -42,3 +31,14 @@ class FeeHead(generics.ListCreateAPIView):
             return Response({'data': 'submitted successfully'})
             
     
+def seefee(request):
+    queryset = FeePattern.objects.all()
+    l=[]
+    for p in queryset.raw('SELECT * from feepattern_FeePattern'):
+        if str(p.fee_pattern_class_name)+"_"+p.fee_pattern_type+"_"+p.fee_pattern_batch in l:
+            pass
+        else:
+            l.append(
+                    str(p.fee_pattern_class_name)+"_"+p.fee_pattern_type+"_"+str(p.fee_pattern_batch),
+            )
+    return JsonResponse({'FeeName': l})
