@@ -88,23 +88,23 @@ WSGI_APPLICATION = 'ERP.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'ERP_PORTAL',
-    }
-}
-# AW7Kd1yClIngsaKd
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'test',
-#         'HOST': 'mongodb+srv://jamura:jamu@erp-ducdz.mongodb.net/test?retryWrites=true&w=majority',
-#         'USER': 'jamura',
-#         'PASSWORD': 'jamu',
-#         'PORT': '8000'
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'ERP_PORTAL',
 #     }
 # }
+# AW7Kd1yClIngsaKd
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'test',
+        'HOST': 'mongodb+srv://jamura:jamu@cluster0-ylfmy.mongodb.net/test?retryWrites=true&w=majority',
+        'USER': 'jamura',
+        'PASSWORD': 'jamu',
+        'PORT': '8000'
+    }
+}
  
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

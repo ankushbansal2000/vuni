@@ -35,7 +35,7 @@ class SearchStudent(generics.ListAPIView):
 class StudentRegistrationUpdate(viewsets.ModelViewSet):
     queryset = Student_Details.objects.all()
     serializer_class = StudentUpdate
-    
+
 
 class ImageViewSet(viewsets.ModelViewSet):
     queryset = Student_Image.objects.all()
