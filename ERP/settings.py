@@ -94,6 +94,32 @@ WSGI_APPLICATION = 'ERP.wsgi.application'
 #         'NAME': 'ERP_PORTAL',
 #     }
 # }
+
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'djongo',
+#             'NAME': 'test',
+#             'ENFORCE_SCHEMA': False,
+#             'CLIENT': {
+#                 'host': 'mongodb+srv://jamura:jamu@cluster0-ylfmy.mongodb.net/test?retryWrites=true&w=majority',
+#                 'port': 8000,
+#                 'username': 'jamura',
+#                 'password': 'jamu',
+#                 'authSource': 'test',
+#                 'authMechanism': 'SCRAM-SHA-1'
+#             },
+#             'LOGGING': {
+#                 'version': 1,
+#                 'loggers': {
+#                     'djongo': {
+#                         'level': 'DEBUG',
+#                         'propogate': False,                        
+#                     }
+#                 },
+#              },
+#         }
+#     }
+
 # AW7Kd1yClIngsaKd
 DATABASES = {
     'default': {
