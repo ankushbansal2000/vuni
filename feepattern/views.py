@@ -33,9 +33,9 @@ class FeeHead(generics.ListCreateAPIView):
             
     
 def seefee(request):
-    queryset = FeePattern.objects.all()
+    queryset = list(FeePattern.objects.all())
     l=[]
-    for p in queryset.raw('SELECT * from feepattern_FeePattern'):
+    for p in queryset:
         if str(p.fee_pattern_class_name)+"_"+p.fee_pattern_type+"_"+p.fee_pattern_batch in l:
             pass
         else:
