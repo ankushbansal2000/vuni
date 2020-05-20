@@ -1,6 +1,14 @@
 from django.db import models
+from jsonfield import JSONField
+from djongo.models import ArrayField
 
 # Create your models here.
+class fee_details(models.Model):
+    amount_payable=models.IntegerField(blank=True)
+    payment_mode=models.CharField(max_length=50,blank=True)
+    cheque_no = models.CharField(blank=True,max_length=50)
+
+
 class Student_Details(models.Model):
     student_admission_status = models.CharField(default = "pending",max_length=50)
     student_name=models.CharField(max_length=50)
@@ -35,6 +43,8 @@ class Student_Details(models.Model):
     student_batch = models.CharField(max_length=50, blank = True)
     student_fee_pattern = models.CharField(max_length=50, blank = True)
     student_image = models.CharField(max_length=100)
+    student_fee_deatils = JSONField(null=True)
+
     def __str__(self):
         return self.student_name
 
@@ -43,3 +53,5 @@ def upload_path(instance,filename):
 
 class Student_Image(models.Model):
     student_image = models.ImageField(upload_to=upload_path)
+
+

@@ -14,9 +14,9 @@ class addBatch(ListCreateAPIView):
 
 def seebatch(request):
     
-    queryset = Batch.objects.all()
+    queryset = list(Batch.objects.all())
     l=[]
-    for p in queryset.raw("SELECT * from academics_Batch"):
+    for p in queryset:
         l.append(
             str(p.batch)+"_"+p.academic_year+"_"+p.start_date+"_"+p.end_date
         )

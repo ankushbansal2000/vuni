@@ -20,6 +20,11 @@ class StudentUpdate(serializers.ModelSerializer):
         model = Student_Details
         fields = ['student_batch','student_fee_pattern']
 
+class StudentFeePay(serializers.ModelSerializer):
+    class Meta:
+        model = Student_Details
+        fields = ['student_fee_deatils']
+
 class StudentImage(serializers.ModelSerializer):
     class Meta:
         model = Student_Image
