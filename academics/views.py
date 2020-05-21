@@ -18,7 +18,7 @@ def seebatch(request):
     l=[]
     for p in queryset:
         l.append(
-            str(p.batch)+"_"+p.academic_year+"_"+p.start_date+"_"+p.end_date
+            str(p.batch)+"_"+p.academic_year
         )
     return JsonResponse({'batch':l})
 

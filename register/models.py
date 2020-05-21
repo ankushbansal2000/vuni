@@ -44,7 +44,7 @@ class Student_Details(models.Model):
     student_fee_pattern = models.CharField(max_length=50, blank = True)
     student_image = models.CharField(max_length=100)
     student_fee_deatils = JSONField(null=True)
-
+    student_fee_mont_wise = JSONField(null=True)
     def __str__(self):
         return self.student_name
 

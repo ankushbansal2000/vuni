@@ -33,8 +33,12 @@ class SearchStudent(generics.ListAPIView):
     search_fields = ['student_name','id']
 
 class StudentRegistrationUpdate(viewsets.ModelViewSet):
+    
     queryset = Student_Details.objects.all()
     serializer_class = StudentUpdate
+    
+        
+        
 
 
 class ImageViewSet(viewsets.ModelViewSet):

@@ -59,11 +59,44 @@ def feePay(request):
         sid = request.data.get("id")        
         sdata = Student_Details.objects.get(id=sid)
         pre = (sdata.student_fee_deatils)
+        data = sdata.student_fee_mont_wise
+                
+        i =0
+        paid = d['payable']
+        n = len(data)
         from datetime import datetime
         from pytz import timezone    
         south_africa = timezone('Asia/Kolkata')
         sa_time = datetime.now(south_africa)
         time=(sa_time.strftime('%Y-%m-%d_%H-%M-%S'))
+        while(i<n):
+            if data[i]['status'] == 'pending' :
+                if data[i]['feePending'] == paid:
+                    data[i]['feePending'] -= paid
+                    data[i]['feePaid'] += paid
+                    paid = 0
+                    data[i]['status'] = 'paid'
+                    data[i]['trnc']=time
+                    break
+                elif data[i]['feePending'] > paid:
+                    
+                    data[i]['feePending'] -= paid
+                    data[i]['feePaid'] += paid
+                    paid = 0
+                    data[i]['trnc']=time
+                    break
+                else :
+                    while(i<n and paid -  data[i]['feePending'] >0 ):
+                        temp = data[i]['feePending']
+                        data[i]['feePaid'] += temp
+                        data[i]['feePending'] = 0
+                        data[i]['status'] = 'paid'
+                        paid -= temp
+                        data[i]['trnc']=time
+                        i+=1
+                        
+            else :
+                i+=1
         if pre:
             pre[time]=d
         else:
@@ -72,6 +105,9 @@ def feePay(request):
 
         sdata.student_fee_deatils = pre
         sdata.save()
+        sdata.student_fee_mont_wise=data
+        sdata.save()
+        
         return Response({'data':"Payment Success"})
 
 def studentsFeeDetails(request):
@@ -79,46 +115,37 @@ def studentsFeeDetails(request):
     data = Student_Details.objects.get(id = sid)
     batchData = data.student_batch.split("_")
     batch  = Batch.objects.get(batch=batchData[0],academic_year=batchData[1])
-    print(batch.start_date)
-    start = batch.start_date.split("-")
-    end = batch.end_date.split("-")
-    from datetime import datetime
-    end_date = datetime(int(end[0]),int(end[1]),int(end[2]))
-    start_date = datetime(int(start[0]),int(start[1]),int(start[2]))
-    num_months = (end_date.year - start_date.year) * 12 + (end_date.month - start_date.month)
-    print(num_months)
-
+    start = batch.start_date
+    end = batch.end_date
     month = 12
-
-    print(data.student_fee_pattern)
-    print(data.student_fee_deatils)
     feedata = FeePatternHead.objects.get(fee_pattern_name=data.student_fee_pattern)
-    print(feedata)
     fee_collect_pattern = int(feedata.fee_collect_pattern)
-    print(fee_collect_pattern)
     interval = month//int(fee_collect_pattern)
+    total_fee = int(feedata.total_academic_fee)+int(feedata.total_tution_fee)+int(feedata.total_hostel_fee)
     res=[]
-    interval=5
-    from datetime import date 
-    from datetime import timedelta 
-    
-    # Get today's date 
-    today = date.today()
-    today = date(int(end[0]),int(end[1]),int(end[2])) 
-    print(type(today))
-    print("Today is: ", today) 
-    
-    # Yesterday date 
-    yesterday = today - timedelta(days = 1) 
-    print("Yesterday was: ", yesterday) 
-    for i in range(interval):
-        res.append({'start':start[0]+"-"+str(start[1])+"-"+start[2]})
-
-        start[1]=int(start[1])+fee_collect_pattern
-        if(start[1]>12):
-            start[1]-=12
-            start[0]=str(int(start[0])+1)
-    print(res)
-    print(interval) 
-    print(sid)
-
+    from datetime import date
+    from datetime import timedelta
+    from dateutil.relativedelta import relativedelta
+    today = date.today()+relativedelta(months=+fee_collect_pattern)
+    feeData = data.student_fee_mont_wise
+    c=0
+    if feeData:
+        res=feeData
+        for i in res:
+            d = list(map(int,i['end'].split("-")))
+            if date(d[0],d[1],d[2])<today and i['status']=="pending":
+                i['status']="selected"
+                c+=i['feePending']
+    else:
+        for i in range(interval):
+            next = start+relativedelta(months=+fee_collect_pattern)
+            res.append({'start':start,'end':next-timedelta(days=1),'status':"pending","feePending":total_fee,"feePaid":0})
+            start=next
+        data.student_fee_mont_wise = res
+        data.save()
+        for i in res:
+            if i['end']<today and i['status']=="pending":
+                i['status']="selected"
+                c+=i['feePending']
+    amount = c
+    return JsonResponse({'amount':amount,'monthly_data':res})
