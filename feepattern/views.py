@@ -62,7 +62,7 @@ def feePay(request):
         data = sdata.student_fee_mont_wise
                 
         i =0
-        paid = d['payable']
+        paid = int(d['payable'])
         n = len(data)
         from datetime import datetime
         from pytz import timezone    
