@@ -11,9 +11,7 @@ class addBatch(ListCreateAPIView):
         queryset = Batch.objects.all()
         return queryset
 
-
 def seebatch(request):
-    
     queryset = list(Batch.objects.all())
     l=[]
     for p in queryset:
@@ -21,5 +19,3 @@ def seebatch(request):
             str(p.batch)+"_"+p.academic_year
         )
     return JsonResponse({'batch':l})
-
-    
