@@ -114,7 +114,10 @@ def studentsFeeDetails(request):
     sid = request.GET.get('id')
     data = Student_Details.objects.get(id = sid)
     batchData = data.student_batch.split("_")
-    batch  = Batch.objects.get(batch=batchData[0],academic_year=batchData[1])
+    try:
+        batch  = Batch.objects.get(batch=batchData[0],academic_year=batchData[1])
+    except:
+        return JsonResponse({'error':"Batch Not Assigned"})
     start = batch.start_date
     end = batch.end_date
     month = 12
