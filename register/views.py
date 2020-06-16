@@ -4,8 +4,8 @@ from .serializer import StudentSerializers,StudentGet,StudentUpdate,StudentImage
 from rest_framework.exceptions import MethodNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from ERP.views import database
-
+from feepattern.models import *
+from rest_framework.response import Response
 class StudentViewSet(generics.ListCreateAPIView):
     def get_serializer_class(self):
         if self.request.method == "POST":
@@ -32,10 +32,50 @@ class SearchStudent(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['student_name','id']
 
-class StudentRegistrationUpdate(viewsets.ModelViewSet):
-    
+class StudentRegistrationUpdate(generics.CreateAPIView):
     queryset = Student_Details.objects.all()
     serializer_class = StudentUpdate
+    def post(self, request, *args, **kwargs):               #save user
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        batch = request.data['student_batch']
+        print(batch)
+        idd = request.GET.get('id')
+        student = Student_Details.objects.get(id=idd)
+        sBatch=student.student_batch
+        if sBatch=='':
+            batchYear = batch.split('_')[1]
+            feepattern = student.student_course+"_"+student.student_category+"_"+batchYear
+            try:
+                fee = FeePattern.objects.get(fee_pattern_class_name=student.student_course,fee_pattern_type=student.student_category,fee_pattern_batch=batchYear)
+            except:
+                return Response({'error':"Batch not assigned, Please add a feepattern with class: "+student.student_course+" , type: "+student.student_category+" , batch: "+batchYear+" and then add a feehead with feepattern:  "+feepattern})
+            try:
+                FeePatternHead.objects.get(fee_pattern_name = feepattern)
+            except:
+                return Response({'error':"Batch not assigned, Please add a feehead with feepattern:  "+feepattern})
+            student.student_batch=batch
+            student.student_fee_pattern=feepattern
+            student.save()
+            return Response({'success':"Batch Assigned SuccessFully"})
+        else:
+            return Response({'error':"Batch Already Assigned"})
+
+
+        # serializer.save()
+        # try:
+        #     admin = Admin.objects.get(username = username)
+        #     return Response({'error': 'user with this username already exist'})
+        # except:
+        #     try:
+        #         admin = Admin.objects.get(email = username)
+        #         return Response({'error': 'user with this email already exist'})
+        #     except:
+        #         user = serializer.save()
+        #         response = Response({
+        #             "success": "user has been successfully register",
+        #         })
+        #         return response
     
         
         
