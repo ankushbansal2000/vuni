@@ -63,14 +63,17 @@ def feePay(request):
                 
         i =0
         paid = int(d['payable'])
+        payable = paid
+     
         n = len(data)
-        from datetime import datetime
+        from datetime import datetime,date,time
         from pytz import timezone    
         south_africa = timezone('Asia/Kolkata')
         sa_time = datetime.now(south_africa)
         time=(sa_time.strftime('%Y-%m-%d_%H-%M-%S'))
         while(i<n):
             if data[i]['status'] == 'pending' :
+
                 if data[i]['feePending'] == paid:
                     data[i]['feePending'] -= paid
                     data[i]['feePaid'] += paid
@@ -97,6 +100,8 @@ def feePay(request):
                         
             else :
                 i+=1
+            
+       
         if pre:
             pre[time]=d
         else:
@@ -107,8 +112,8 @@ def feePay(request):
         sdata.save()
         sdata.student_fee_mont_wise=data
         sdata.save()
-        
-        return Response({'data':"Payment Success"})
+        response={'studentName':sdata.student_name,'father_name':sdata.student_father,'application_no':sid,'amount_paid':payable,'date':date.today(),'time':datetime.now().time().strftime("%H:%M:%S"),'batch':sdata.student_batch}
+        return Response({'data':"Payment Success",'fee_recipt':response})
 
 def studentsFeeDetails(request):
     sid = request.GET.get('id')
